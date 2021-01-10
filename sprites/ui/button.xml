@@ -1,0 +1,8 @@
+<!-- @todo Definetle should have SlicedRender -->
+<sprite centerX="2" centerY="5">
+  <animation name="default">
+    <frame>
+      <row color="BRGYLPC" chars="𝔉𝔯𝔞𝔠𝔱𝔲𝔯"></row>
+    </frame>
+  </animation>
+</sprite>

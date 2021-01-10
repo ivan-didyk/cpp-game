@@ -1,0 +1,39 @@
+<sprite centerX="2" centerY="5">
+  <!-- The tree -->
+  <animation name="default">
+    <frame>
+      <row color="  g  " chars="  .  "></row>
+      <row color=" Ggg " chars=" /|\ "></row>
+      <row color="Ggggg" chars="//|\\"></row>
+      <row color="GGggg" chars="//|\\"></row>
+      <row color="Ggggg" chars="//|\\"></row>
+      <row color="  y  " chars="  |  "></row>
+    </frame>
+  </animation>
+  <animation name="decorated">
+    <frame>
+      <row color="  g  " chars="  .  "></row>
+      <row color=" Ggg " chars=" /|\ "></row>
+      <row color="GRggg" chars="/*|\\"></row>
+      <row color="GGgLg" chars="//|*\"></row>
+      <row color="GYggg" chars="/*|\\"></row>
+      <row color="  y  " chars="  |  "></row>
+    </frame>
+    <frame>
+      <row color="  g  " chars="  .  "></row>
+      <row color=" Ggg " chars=" /|\ "></row>
+      <row color="GLggg" chars="/*|\\"></row>
+      <row color="GGgYg" chars="//|*\"></row>
+      <row color="GRggg" chars="/*|\\"></row>
+      <row color="  y  " chars="  |  "></row>
+    </frame>
+    <frame>
+      <row color="  g  " chars="  .  "></row>
+      <row color=" Ggg " chars=" /|\ "></row>
+      <row color="GYggg" chars="/*|\\"></row>
+      <row color="GGgRg" chars="//|*\"></row>
+      <row color="GLggg" chars="/*|\\"></row>
+      <row color="  y  " chars="  |  "></row>
+    </frame>
+  </animation>
+</sprite>

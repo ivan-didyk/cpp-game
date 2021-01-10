@@ -1,0 +1,18 @@
+<sprite>
+  <animation name="default">
+    <frame pivotY="5" pivotX="35">
+      <row color="                    WWWWWWWWWWWWWWWWWWWWWWWWWWW                   " chars="                    ┏━━━━━━━━━━━━━━━━━━━━━━━━━┓                   "></row>
+      <row color="     WWWWWWWWWWWWW  W  www  BBB  BBB       GG W                   " chars="     ┏━━━━━━━━━━━┓  ┃  ───  ───  ───       |> ┃                   "></row>
+      <row color="     W wwwwwwwww W  W  C GGGG                 W                   " chars="     ┃ ┌───────┐ ┃  ┃  ━ ━━━━                 ┃                   "></row>
+      <row color="     W wwwwwwwww W  W  YY ww                  W                   " chars="     ┃ ├───────┤ ┃  ┃  ━━ ━━                  ┃                   "></row>
+      <row color="     W wwwwwwwww W  W    ww GG                W                   " chars="     ┃ ├───────┤ ┃  ┃    ━━ ━━                ┃                   "></row>
+      <row color="     W wwwwwwwww W  W    L P                  W                   " chars="     ┃ ├───┬───┘ ┃  ┃    ━ ━                  ┃                   "></row>
+      <row color="     W wwwww  G  W  W  W                      W                   " chars="     ┃ └───┘  @  ┃  ┃  ━                      ┃                   "></row>
+      <row color="     W        Y  W  W        R G Y P C        W     WWWWWW        " chars="     ┃        .  ┃  ┃        * * * * *        ┃     ┏━━━━┓        "></row>
+      <row color="     W           W  WWWWWWWWWWWWWWWWWWWWWWWWWWW     W YY WW       " chars="     ┃           ┃  ┗━━━━━━━━━━━━━━━━━━━━━━━━━┛     ┃ .. ┣┓       "></row>
+      <row color="     WWWWWWWWWWWWW  wwwwwwwwwwwwwwwwwwwwwwwwwww     W  Y WW       " chars="     ┗━╦━━━━━━━╦━┛  ┏━━━━━━━━━┻━━━━━┻━━━━━━━━━┓     ┃  ^ ┣┛       "></row>
+      <row color="  w  wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww ww  w" chars="  ━  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ ━━  ━"></row>
+      <row color="         www      www               w w       www w               " chars="         ━━━      ━━━               ━ ━       ━━━ ━               "></row>
+    </frame>
+  </animation>
+</sprite>

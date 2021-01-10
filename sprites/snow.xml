@@ -1,0 +1,20 @@
+<sprite>
+  <animation name="default">
+    <frame>
+      <row color="w                              w" chars=".                              ."/>
+      <row color="            w                   " chars="            ^                   "/>
+      <row color="                                " chars="                                "/>
+      <row color="                                " chars="                                "/>
+      <row color="                w        w      " chars="                -        .      "/>
+      <row color="                                " chars="                                "/>
+      <row color="                                " chars="                                "/>
+      <row color="     w                          " chars="     ^                          "/>
+      <row color="                 w  w           " chars="                 *  .           "/>
+      <row color="                                " chars="                                "/>
+      <row color="                        w       " chars="                        -       "/>
+      <row color="         w                      " chars="         .                      "/>
+      <row color="                                " chars="                                "/>
+      <row color="w                              w" chars="*                              -"/>
+    </frame>
+  </animation>
+</sprite>
