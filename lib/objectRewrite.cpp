@@ -79,6 +79,12 @@ template<
 >
 T* Object::addComponent(Args&& ...args) {
   T* cmp = new T(forward<Args>(args)...);
+  if(is_base_of<Render, T>::value) { // Это рендер
+    if(ownRender) throw "Два рендера к обьекту не крепятся";
+    ownRender = new PriorityObj;
+    ownRender->object = this;
+    ownRender->render = cmp;
+  }
   components.push_back(cmp);
   cmp->attachedObject = this;
   cmp->id = typeid(T).name();
@@ -185,4 +191,49 @@ Vector2 Transform::getAbsolutePosition() const {
 
 Vector2 Transform::getRelativePosition() const {
   return relativePosition;
+}
+
+
+//  ____                _           
+// |  _ \ ___ _ __   __| | ___ _ __ 
+// | |_) / _ \ '_ \ / _` |/ _ \ '__|
+// |  _ <  __/ | | | (_| |  __/ |   
+// |_| \_\___|_| |_|\__,_|\___|_|   
+//
+
+void Render::callDraw() {
+  draw();
+}
+
+
+//  ____                      
+// / ___|  ___ ___ _ __   ___ 
+// \___ \ / __/ _ \ '_ \ / _ \
+//  ___) | (_|  __/ | | |  __/
+// |____/ \___\___|_| |_|\___|
+//
+
+Object* Scene::root() const {
+  return &sceneRoot;
+}
+
+
+
+//   ____                      
+//  / ___| __ _ _ __ ___   ___ 
+// | |  _ / _` | '_ ` _ \ / _ \
+// | |_| | (_| | | | | | |  __/
+//  \____|\__,_|_| |_| |_|\___|
+                             
+void Game::openScene(string name) {
+  delete current;
+  current = create(name);
+}
+
+void Game::update() {
+  current->root()->callUpdate();
+}
+
+void Game::draw() {
+  current->root()->callDraw();
 }

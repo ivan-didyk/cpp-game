@@ -3,6 +3,7 @@
 #include <typeinfo>
 #include <algorithm>
 #include <list>
+#include <type_traits>
 
 using namespace std;
 
@@ -305,9 +306,6 @@ class Render : public Component {
    * Выводим на экран картинку - это происходит после `update`. 
   */
   virtual void draw() { }
- public:
-  Render();
-  ~Render();
 };
 
 /**
@@ -315,7 +313,7 @@ class Render : public Component {
  * На экране может быть только одна сцена
 */
 class Scene {
-  friend class SceneManager;
+  friend class Game;
  private:
   // Рут сцены
   Object sceneRoot;
@@ -328,7 +326,7 @@ class Scene {
   /**
    * Получаем рут сцены
   */
-  Object* root();
+  Object* root() const;
  public:
   /**
    * Просто создаём сцену
