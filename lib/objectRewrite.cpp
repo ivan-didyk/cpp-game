@@ -140,3 +140,49 @@ vector<T*> Component::getComponents() const {
 void Component::destroy() {
   attachedObject->removeComponent(this);
 }
+
+//  _____                     __                      
+// |_   _| __ __ _ _ __  ___ / _| ___  _ __ _ __ ___  
+//   | || '__/ _` | '_ \/ __| |_ / _ \| '__| '_ ` _ \ 
+//   | || | | (_| | | | \__ \  _| (_) | |  | | | | | |
+//   |_||_|  \__,_|_| |_|___/_|  \___/|_|  |_| |_| |_|
+                                                    
+
+void Transform::moveChildren(Vector2 delta) {
+  for(auto i : getObject()->getChildren()) {
+    i->getTransform()->move(delta);
+  }
+}
+
+void Transform::setAbsolutePosition(Vector2 pos) {
+  Vector2 delta = pos - absolutePosition;
+  move(delta);
+  moveChildren(delta);
+}
+
+void Transform::setRelativePosition(Vector2 pos) {
+  Vector2 delta = pos - relativePosition;
+  move(delta);
+  moveChildren(delta);
+}
+
+void Transform::setRelativePositionSelf(Vector2 pos) {
+  move(pos - relativePosition);
+}
+
+void Transform::setAbsolutePositionSelf(Vector2 pos) {
+  move(pos - absolutePosition);
+}
+
+void Transform::move(Vector2 delta) {
+  absolutePosition += delta;
+  relativePosition += delta;
+}
+
+Vector2 Transform::getAbsolutePosition() const {
+  return absolutePosition;
+}
+
+Vector2 Transform::getRelativePosition() const {
+  return relativePosition;
+}

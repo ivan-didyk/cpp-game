@@ -25,6 +25,24 @@ class Game     ;
 */
 struct Vector2 {
   int x = 0, y = 0;
+
+  Vector2(int X, int Y) : x(X), y(Y) {}
+  Vector2(int d)        : x(d), y(d) {}
+  Vector2()             : x(0), y(0) {}
+
+  Vector2 operator-(Vector2 other) const {
+    return Vector2(x - other.x, y - other.y);
+  }
+
+  Vector2 operator+(Vector2 other) const {
+    return Vector2(x + other.x, y + other.y);
+  }
+
+  Vector2& operator+=(Vector2 other) {
+    x += other.x;
+    y += other.y;
+    return *this;
+  }
 };
 
 /**
@@ -230,8 +248,15 @@ class Component {
 */
 class Transform : public Component {
  private:
+  // Поиция относительно родителя
   Vector2 relativePosition;
+  // Позиция относительно начала координат
   Vector2 absolutePosition;
+
+  /**
+   * Передвинуть детей
+  */
+  void moveChildren(Vector2);
  public:
   Transform() {}
 
