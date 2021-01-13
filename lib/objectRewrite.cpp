@@ -26,6 +26,15 @@ void Object::removeChild(Object* child) {
   }
 }
 
+void Object::removeComponent(Component* component) {
+  for(unsigned i = 0; i < components.size(); ++i) {
+    if(components[i] == component) {
+      components.erase(components.begin() + i);
+      return;
+    }
+  }
+}
+
 template<typename T>
 T* Object::getComponent() const {
   for(auto &i : components) {
@@ -94,3 +103,40 @@ void Object::destroy() {
   parent->removeChild(this);
 }
 
+
+//   ____                                             _   
+//  / ___|___  _ __ ___  _ __   ___  _ __   ___ _ __ | |_ 
+// | |   / _ \| '_ ` _ \| '_ \ / _ \| '_ \ / _ \ '_ \| __|
+// | |__| (_) | | | | | | |_) | (_) | | | |  __/ | | | |_ 
+//  \____\___/|_| |_| |_| .__/ \___/|_| |_|\___|_| |_|\__|
+//                      |_|                               
+
+void Component::callUpdate() {
+  update();
+}
+
+void Component::callStart() {
+  start();
+}
+
+Object* Component::getObject() const {
+  return attachedObject;
+}
+
+string Component::getTag() const {
+  return attachedObject->getTag();
+}
+
+template <typename T>
+T* Component::getComponent() const {
+  return attachedObject->getComponent<T>();
+}
+
+template <typename T>
+vector<T*> Component::getComponents() const {
+  return attachedObject->getComponents<T>();
+}
+
+void Component::destroy() {
+  attachedObject->removeComponent(this);
+}

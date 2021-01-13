@@ -12,6 +12,14 @@ using namespace std;
 * По большей части идеи из Unity 3D                  *
 \****************************************************/
 
+// Обьявляем имена классов
+class Object   ; 
+class Component; 
+class Transform;
+class Render   ; 
+class Scene    ; 
+class Game     ;
+
 /**
  * Точка в огромном мире
 */
@@ -25,6 +33,8 @@ struct Vector2 {
 struct PriorityObj {
   // Кого рисовать
   Object* object = nullptr;
+  // Какой компонент рисует
+  Render* render = nullptr;
   // Приоритет
   int priority = 0;
 
@@ -34,13 +44,6 @@ struct PriorityObj {
   }
 };
 
-// Обьявляем имена классов
-class Object   ; 
-class Component; 
-class Transform;
-class Render   ; 
-class Scene    ; 
-class Game     ;
 
 
 /**
@@ -49,21 +52,24 @@ class Game     ;
 class Object {
   friend class Game;
   friend class Render;
+  friend class Component;
  private:
   // Имя обьекта, его можно установить
   string label;
   // Список всех дочерних элементов обьекта
   string tag;
   // Список всех дочерних элементов обьекта
-  vector<Object*> childs;
+  vector<Object*> children;
   // Список компонентов
   vector<Component*> components;
   // Ссылка на компонент Transform
   Transform* transform;
   // Рендеры дочерних элементов
   list<PriorityObj*> renders;
-  // Компонент с рендером
-
+  // Родитель
+  Object* parent;
+  // Свой рендер
+  PriorityObj* ownRender = nullptr;
   /**
    * Запускаем обновление по всему обьекту
   */
@@ -72,9 +78,16 @@ class Object {
    * Запускаем отрисовку
   */
   void callDraw();
+
+  void removeChild(Object*);
+  void removeComponent(Component*);
  protected:
   // @todo
  public:
+  /**
+   * Создаём обьект с неким именем
+  */
+  Object(string);
   /**
    * Ищем компонент типа `T` и возвращаем его
   */
@@ -195,6 +208,18 @@ class Component {
   Transform* getTransform() const;
 
   /**
+   * Ищем компонент типа `T` и возвращаем его
+  */
+  template <typename T>
+  T* getComponent() const;
+
+  /**
+   * Ищем ВСЕ компоненты типа `T` и возвращаем их в векторе
+  */
+  template <typename T>
+  vector<T*> getComponents() const;
+
+  /**
    * Уничтожить себя
   */
  void destroy();
@@ -283,7 +308,7 @@ class Scene {
   /**
    * Просто создаём сцену
   */
-  Scene() :root("root") {}
+  Scene() :sceneRoot("root") {}
 };
 
 /**
@@ -293,7 +318,7 @@ class Scene {
 class Game {
  private:
   // Сcылка на единственный экземпляр
-  static Game* game = nullptr;
+  static Game* game;
   // Сейчас открытая сцена
   Scene* current;
 
@@ -312,7 +337,7 @@ class Game {
   /**
    * Создаём менеджера, открываем сцену по умолчанию
   */
-  SceneManager();
+  Game();
   /**
    * Обновляем сцену
   */
