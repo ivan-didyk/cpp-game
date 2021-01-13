@@ -1,4 +1,4 @@
-#include "lib/object.hpp"
+#include "lib/object.h"
 #include "lib/sceneList.hpp"
 
 #include "scenes/menu.hpp"

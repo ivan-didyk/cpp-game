@@ -1,3 +1,4 @@
+#pragma once
 #include <string>
 #include <vector>
 #include <typeinfo>
@@ -156,8 +157,7 @@ class Object {
   */
   template<
     typename T,
-    typename... Args,
-    typename std::enable_if<std::is_base_of<Object, T>::value>::type* = nullptr
+    typename... Args
   >
   T* addComponent(Args&& ...args);
 
@@ -167,8 +167,7 @@ class Object {
   */
   template<
     typename T,
-    typename... Args,
-    typename enable_if<is_base_of<Object, T>::value>::type* = nullptr
+    typename... Args
   >
   T* addChild(Args&& ...args);
 
@@ -291,6 +290,18 @@ class Transform : public Component {
    * Передвинуться на сколько-то
   */
   void move(Vector2);
+
+  /**
+   * Получить абсолютную координату по X
+   * @deprecated
+  */
+  int x() const;
+
+  /**
+   * Получить абсолютную координату по Y
+   * @deprecated
+  */
+  int y() const;
 };
 
 /**
@@ -321,12 +332,12 @@ class Scene {
   /**
    * Тут пишет создание сцену (добавление на неё игровых обьектов)
   */
-  virtual void create();
+  virtual void create() {}
 
   /**
    * Получаем рут сцены
   */
-  Object* root() const;
+  Object* root();
  public:
   /**
    * Просто создаём сцену

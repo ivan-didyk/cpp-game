@@ -1,6 +1,4 @@
-#include "lib/object.hpp"
-#include "lib/components/render.hpp"
-#include "lib/components/transform.hpp"
+#include "lib/object.h"
 #include <ncurses.h>
 
 struct WindowBorder {

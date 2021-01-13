@@ -3,7 +3,7 @@
 * для описания списка сцен             *
 \**************************************/
 
-#define scenes Scene* SceneManager::create(string s) {
+#define scenes Scene* Game::create(string s) {
 #define startScene(z) if(s == "" || s == typeid(z).name()) \
                            return new z; \
                          else

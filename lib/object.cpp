@@ -1,4 +1,5 @@
-#include "objectRewrite.h"
+#include "object.h"
+#include <ncurses.h>
 
 //    ___  _     _           _   
 //   / _ \| |__ (_) ___  ___| |_ 
@@ -6,6 +7,11 @@
 //  | |_| | |_) | |  __/ (__| |_ 
 //   \___/|_.__// |\___|\___|\__|
 //            |__/               
+
+Object::Object(string name) {
+  label = name;
+  transform = addComponent<Transform>();
+}
 
 void Object::callUpdate() {
   for(auto &i : components) i->callUpdate();
@@ -74,16 +80,16 @@ Transform* Object::getTransform() const {
 
 template<
   typename T,
-  typename... Args,
-  typename std::enable_if<std::is_base_of<Object, T>::value>::type*
+  typename... Args
 >
 T* Object::addComponent(Args&& ...args) {
   T* cmp = new T(forward<Args>(args)...);
-  if(is_base_of<Render, T>::value) { // Это рендер
+  if constexpr (is_base_of<Render, T>::value) { // Это рендер
     if(ownRender) throw "Два рендера к обьекту не крепятся";
     ownRender = new PriorityObj;
     ownRender->object = this;
     ownRender->render = cmp;
+    parent->renders.push_back(ownRender);
   }
   components.push_back(cmp);
   cmp->attachedObject = this;
@@ -94,8 +100,7 @@ T* Object::addComponent(Args&& ...args) {
 
 template<
   typename T,
-  typename... Args,
-  typename enable_if<is_base_of<Object, T>::value>::type*
+  typename... Args
 >
 T* Object::addChild(Args&& ...args) {
   T* ch = new T(forward<Args>(args)...);
@@ -138,6 +143,10 @@ T* Component::getComponent() const {
   return attachedObject->getComponent<T>();
 }
 
+Transform* Component::getTransform() const {
+  return attachedObject->getTransform();
+}
+
 template <typename T>
 vector<T*> Component::getComponents() const {
   return attachedObject->getComponents<T>();
@@ -149,7 +158,7 @@ void Component::destroy() {
 
 //  _____                     __                      
 // |_   _| __ __ _ _ __  ___ / _| ___  _ __ _ __ ___  
-//   | || '__/ _` | '_ \/ __| |_ / _ \| '__| '_ ` _ \ 
+//   | || '__/ _` | '_ \/ __| |_ / _ \| '__| '_ ` _ \  
 //   | || | | (_| | | | \__ \  _| (_) | |  | | | | | |
 //   |_||_|  \__,_|_| |_|___/_|  \___/|_|  |_| |_| |_|
                                                     
@@ -193,6 +202,14 @@ Vector2 Transform::getRelativePosition() const {
   return relativePosition;
 }
 
+int Transform::x() const {
+  return absolutePosition.x;
+}
+
+int Transform::y() const {
+  return absolutePosition.y;
+}
+
 
 //  ____                _           
 // |  _ \ ___ _ __   __| | ___ _ __ 
@@ -208,12 +225,12 @@ void Render::callDraw() {
 
 //  ____                      
 // / ___|  ___ ___ _ __   ___ 
-// \___ \ / __/ _ \ '_ \ / _ \
+// \___ \ / __/ _ \ '_ \ / _ \ 
 //  ___) | (_|  __/ | | |  __/
 // |____/ \___\___|_| |_|\___|
 //
 
-Object* Scene::root() const {
+Object* Scene::root() {
   return &sceneRoot;
 }
 
@@ -221,13 +238,15 @@ Object* Scene::root() const {
 
 //   ____                      
 //  / ___| __ _ _ __ ___   ___ 
-// | |  _ / _` | '_ ` _ \ / _ \
+// | |  _ / _` | '_ ` _ \ / _ \ 
 // | |_| | (_| | | | | | |  __/
 //  \____|\__,_|_| |_| |_|\___|
                              
 void Game::openScene(string name) {
   delete current;
+  erase();
   current = create(name);
+  current->create();
 }
 
 void Game::update() {
@@ -236,4 +255,9 @@ void Game::update() {
 
 void Game::draw() {
   current->root()->callDraw();
+}
+
+Game::Game() {
+  current = create("");
+  current->create();
 }

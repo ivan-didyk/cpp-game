@@ -1,3 +1,4 @@
+#include "./lib/object.cpp"
 #include "scenes.hpp"
 #include <unistd.h>
 #include <clocale>
@@ -24,7 +25,8 @@ int main() {
     //erase();
 
 
-    SceneManager manager;
+    Game manager;
+    printw("Game init");
 
 
     curs_set(0);
@@ -33,7 +35,7 @@ int main() {
       erase();
       manager.draw();
       refresh();
-      usleep(1000000);
+      usleep(200000);
     }
     
     erase();
@@ -44,6 +46,7 @@ int main() {
     printf("[ERR] %s\n", e);
   } catch(...) {
     endwin();
+    printf("[ERR] Unknown\n");
   }
   return 0;
 }

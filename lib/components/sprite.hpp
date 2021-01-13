@@ -1,9 +1,7 @@
 #pragma once
-#include "lib/object.hpp"
+#include "lib/object.h"
 #include "lib/rapidxml/rapidxml.hpp"
 #include "lib/rapidxml/rapidxml_utils.hpp"
-#include "lib/components/transform.hpp"
-#include "render.hpp"
 #include <iostream>
 #include <map>
 #include <locale>
@@ -84,6 +82,7 @@ class Sprite : public Render {
         if(frame.color[i][j] == ' ') {
           continue;
         }
+        if(i+transform->y()+1-frame.pivotY < 0 || j+transform->x()+1-frame.pivotX < 0) continue;
         move(i+transform->y()+1-frame.pivotY, j+transform->x()+1-frame.pivotX);
         string chars = to_utf8(u32string(1, frame.chars[i][j]));
         char ch = frame.color[i][j];

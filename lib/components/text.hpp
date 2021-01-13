@@ -1,6 +1,4 @@
-#include "lib/object.hpp"
-#include "render.hpp"
-#include "transform.hpp"
+#include "lib/object.h"
 
 /**
  * A text rendering stuff
