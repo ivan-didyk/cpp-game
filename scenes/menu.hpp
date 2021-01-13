@@ -1,24 +1,21 @@
-#include "lib/object.hpp"
-#include "lib/components/transform.hpp"
+#include "lib/object.h"
 #include "lib/components/sprite.hpp"
 #include "lib/components/windowRender.hpp"
 #include "lib/components/text.hpp"
+#include "components/center.hpp"
 #include <ncurses.h>
 
 class Menu : public Scene {
   Transform* illustrationPos;
 
   void create() {
-    /*auto illustration = base().addChild<Object>("bg");
-    illustrationPos = illustration->addComponent<Transform>(10, 10);
-    illustration->addComponent<Sprite>("./sprites/mainmenu/main.xml");*/
+    auto illustration = root()->addChild<Object>("bg");
+    illustration->addComponent<Sprite>("./sprites/mainmenu/main.xml");
+    illustration->addComponent<Center>();
 
-    auto btn = base().addChild<Object>("btn");
-    btn->addComponent<Transform>(5, 5);
-    btn->addComponent<WindowRender>(10, 2);
-
-    auto btnText = btn->addChild<Object>("text");
-    text->addComponent
+    /*auto btn = root()->addChild<Object>("btn");
+    btn->getTransform()->setAbsolutePosition({5, 5});
+    btn->addComponent<WindowRender>(10, 2);*/
   }
 
   void update() {
