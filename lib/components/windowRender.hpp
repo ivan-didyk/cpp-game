@@ -10,6 +10,7 @@ struct Window {
   unsigned startx, starty;
   unsigned width, height;
   WindowBorder border;
+  int color;
 };
 
 void create_box(Window &win, bool flag) {
@@ -22,6 +23,7 @@ void create_box(Window &win, bool flag) {
 	h = win.height;
 
 	if(flag == true){
+     attron(COLOR_PAIR(win.color));
     mvprintw(y    , x    , "%s", win.border.tl.c_str());
     mvprintw(y    , x + w, "%s", win.border.tr.c_str());
     mvprintw(y + h, x    , "%s", win.border.bl.c_str());
@@ -36,6 +38,7 @@ void create_box(Window &win, bool flag) {
       mvprintw(y  , i, "%s", win.border.ts.c_str());
       mvprintw(y+h, i, "%s", win.border.bs.c_str());
     }
+     attroff(COLOR_PAIR(win.color));
 	}
 	else
 		for(j = y; j <= y + h; ++j)
@@ -49,8 +52,6 @@ class WindowRender : public Render {
 
   void start() {
     transform = getComponent<Transform>();
-    win.startx = transform->x();
-    win.starty = transform->y();
     win.border.ls = "┃";
     win.border.rs = "┃";
     win.border.ts = "━";
@@ -61,7 +62,10 @@ class WindowRender : public Render {
     win.border.br = "┛";
   }
 
-  void update() {}
+  void update() {
+    win.startx = transform->x();
+    win.starty = transform->y();
+  }
 
   void draw() {
     create_box(win, true);
@@ -71,8 +75,9 @@ class WindowRender : public Render {
   void setHeight(unsigned height) { win.height = height; }
 
  public:
-  WindowRender(unsigned width, unsigned height) {
+  WindowRender(unsigned width, unsigned height, int color) {
     win.width  = width;
     win.height = height;
+    win.color = color;
   }
 };
