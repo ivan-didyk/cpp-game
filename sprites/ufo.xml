@@ -1,0 +1,26 @@
+<sprite>
+  <animation name="default">
+    <frame>
+      <row color="     LLLLLLL     " chars="     .=~~~=.     " />
+      <row color="     L     L     " chars="     |     |     " />
+      <row color="  WWWWWWWWWWWWW  " chars="  .=~^^^^^^^~=.  " />
+      <row color="WW BB BB BB BB WW" chars=":` () () () () `:" />
+      <row color=" WWWWwWWWWWwWWWW " chars=" ````\`````/```` " />
+      <row color="      wwwww      " chars="      `===`      " />
+      <row color="       rYr       " chars="       :#:       " />
+      <row color="       rYr       " chars="       ';'       " />
+      <row color="        r        " chars="        '        " />
+    </frame>
+    <frame>
+      <row color="     LLLLLLL     " chars="     .=~~~=.     " />
+      <row color="     L     L     " chars="     |     |     " />
+      <row color="  WWWWWWWWWWWWW  " chars="  .=~^^^^^^^~=.  " />
+      <row color="WW BB BB BB BB WW" chars=":` () () () () `:" />
+      <row color=" WWWWwWWWWWwWWWW " chars=" ````\`````/```` " />
+      <row color="      wwwww      " chars="      `===`      " />
+      <row color="       rYr       " chars="       .:.       " />
+      <row color="        r        " chars="        '        " />
+      <row color="        r        " chars="        .        " />
+    </frame>
+  </animation>
+</sprite>
