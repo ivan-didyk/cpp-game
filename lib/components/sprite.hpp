@@ -61,14 +61,14 @@ class Sprite : public Render {
   inline int encode(char ch) {
     chtype color = 0;
     switch(tolower(ch)) {
-      case 'b': return 8; break;
-      case 'r': return 1; break;
-      case 'g': return 2; break;
-      case 'y': return 3; break;
-      case 'l': return 4; break;
-      case 'p': return 5; break;
-      case 'c': return 6; break;
-      case 'w': return 7; break;
+      case 'b': return COLOR_BLACK;   break;
+      case 'r': return COLOR_RED;     break;
+      case 'g': return COLOR_GREEN;   break;
+      case 'y': return COLOR_YELLOW;  break;
+      case 'l': return COLOR_BLUE;    break;
+      case 'p': return COLOR_MAGENTA; break;
+      case 'c': return COLOR_CYAN;    break;
+      case 'w': return COLOR_WHITE;   break;
     }
     color = NCURSES_BITS(1U, color);
     if(isupper(ch)) color |= A_BOLD; // Make bright
