@@ -1,5 +1,4 @@
-# Небольшая терминальная игра на C++
-Основана на самописном движке, который затерялся в файловой структуре
+# Движок для терминальных игр под Linux
 
 ## Что все эти папки и файлы значат?
 - `lib` - файлы движка
@@ -85,8 +84,7 @@
 
 Создаём свой файл в `components/` (например `pechka.hpp`) и пишем код:
 ```cpp
-#include "lib/object.hpp" // Подключаем основную библиотеку
-#include "lib/components/render.hpp" // Подключаем компонент отрисовки (если нужно)
+#include "lib/object.h" // Подключаем основную библиотеку
 
 // Создаём класс своего компонента
 class Pechka : public Render {
@@ -104,7 +102,7 @@ class Pechka : public Render {
 | -- | --- |  
 |    |   Если вам ныжно что-то выводить, читать [тут](https://tldp.org/HOWTO/NCURSES-Programming-HOWTO/index.html)  |
 
-Если компонент не должен отображаться, то наследуется он от `Component`, `render.hpp` не подключается и метод `draw` не обьявляется.
+Если компонент не должен отображаться, то наследуется он от `Component` и метод `draw` не обьявляется.
 
 ### Создаём сцену
 Делаем файл сцены в `/scenes` (назовём его `izba.hpp`)
@@ -130,7 +128,7 @@ class Izba : Scene {
 
 Теперь регистрируем сцену в `scenes.hpp`
 ```cpp
-#include "lib/object.hpp"
+#include "lib/object.h"
 #include "lib/sceneList.hpp"
 
 #include "scenes/izba.hpp"
