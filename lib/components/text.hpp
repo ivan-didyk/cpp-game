@@ -5,16 +5,10 @@
  * @todo Add FoRmAtTeD text!
  */
 class Text : public Render {
-  Transform* transform;
   string txt;
 
-  void start() {
-    transform = getComponent<Transform>();
-  }
-
   void draw() {
-    move(transform->y(), transform->x());
-    printw("%s", txt.c_str());
+    mvprintw(getTransform()->y(), getTransform()->x(), "%s", txt.c_str());
   }
  public:
   Text() { txt="Text..."; }
