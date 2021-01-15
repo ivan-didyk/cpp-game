@@ -6,10 +6,11 @@
 
 int main() {
   try {
-    std::setlocale(LC_ALL, "en_US.UTF-8");
+    setlocale(LC_ALL, "en_US.UTF-8");
     initscr();
     use_default_colors();
     noecho();
+    keypad(stdscr, true);
     
     start_color();
     init_pair(0, COLOR_BLACK, -1);
@@ -20,21 +21,23 @@ int main() {
     init_pair(5, COLOR_MAGENTA, -1);
     init_pair(6, COLOR_CYAN, -1);
     init_pair(7, COLOR_WHITE, -1);
-    halfdelay(100);
+    halfdelay(1);
   
     //erase();
 
 
     Game manager;
-    printw("Game init");
 
 
     curs_set(0);
+
     while (true) {
+      manager.pressed = getch();
       manager.update();
       erase();
       manager.draw();
       refresh();
+      flushinp();
       usleep(200000);
     }
     
