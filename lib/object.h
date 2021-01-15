@@ -14,6 +14,8 @@ using namespace std;
 * По большей части идеи из Unity 3D                  *
 \****************************************************/
 
+int main();
+
 // Обьявляем имена классов
 class Object   ; 
 class Component; 
@@ -347,7 +349,7 @@ class Scene {
    * Получаем рут сцены
   */
   Object* root();
- public:
+
   /**
    * Просто создаём сцену
   */
@@ -359,11 +361,15 @@ class Scene {
  * Ничего с ним не делать, кроме статических методов
 */
 class Game {
+  friend int main();
  private:
   // Сcылка на единственный экземпляр
   static Game* game;
   // Сейчас открытая сцена
   Scene* current;
+  // Всё что произошло на клавиатуре
+  int pressed;
+
 
   /** 
    * Создаём сцену
@@ -376,7 +382,6 @@ class Game {
   */
   void openScene(string);
 
- public:
   /**
    * Создаём менеджера, открываем сцену по умолчанию
   */
@@ -389,4 +394,9 @@ class Game {
    * Рисуем сцену
   */
   void draw();
+ public:
+
+  static bool getKey(int);
+
+  static int getCurrentKey();
 };

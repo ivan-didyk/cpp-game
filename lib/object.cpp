@@ -266,4 +266,15 @@ void Game::draw() {
 Game::Game() {
   current = create("");
   current->create();
+  game = this;
 }
+
+bool Game::getKey(int key) {
+  return game->pressed == key;
+}
+
+int Game::getCurrentKey() {
+  return game->pressed;
+}
+
+Game* Game::game = nullptr;
