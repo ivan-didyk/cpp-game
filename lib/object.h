@@ -79,17 +79,18 @@ class Object {
   // Список всех дочерних элементов обьекта
   string tag;
   // Список всех дочерних элементов обьекта
-  vector<Object*> children;
+  list<Object*> children;
   // Список компонентов
   vector<Component*> components;
   // Ссылка на компонент Transform
   Transform* transform;
-  // Рендеры дочерних элементов
-  list<PriorityObj*> renders;
   // Родитель
   Object* parent;
   // Свой рендер
-  PriorityObj* ownRender = nullptr;
+  Render* ownRender = nullptr;
+  // Приоритет отрисовки
+  int priority;
+
   /**
    * Запускаем обновление по всему обьекту
   */
@@ -128,7 +129,7 @@ class Object {
   /**
    * Получаем список дочерних элементов
   */
-  vector<Object*> getChildren() const;
+  list<Object*> getChildren() const;
 
   /**
    * Выяснить тег обьекта
@@ -145,6 +146,16 @@ class Object {
    * Такой компонент у обьекта обязательно присутствует
   */
   Transform* getTransform() const;
+
+  /**
+   * Выяснить приоритет отрисовки обьекта
+  */
+  int getPriority() const;
+
+  /**
+   * Установить приоритет отрисовки
+  */
+  void setPriority(int newPriority);
 
   /**
    * Добавить компонент `T`
@@ -175,6 +186,8 @@ class Object {
    * Самоуничтожиться (((
   */
   void destroy();
+
+  bool operator<(Object&) const;
 };
 
 
@@ -247,6 +260,7 @@ class Component {
  * Компонент ответственный за позицию
 */
 class Transform : public Component {
+  friend class Object;
  private:
   // Поиция относительно родителя
   Vector2 relativePosition;
@@ -269,16 +283,6 @@ class Transform : public Component {
   */
   void setRelativePosition(Vector2);
   /**
-   * То же самое что `setAbsolutePosition`,
-   * но подобьекты не перемещаются
-  */
-  void setAbsolutePositionSelf(Vector2);
-  /**
-   * То же самое что `setRelativePosition`,
-   * но подобьекты не перемещаются
-  */
-  void setRelativePositionSelf(Vector2);
-  /**
    * Получаем абсолютную позицию
   */
   Vector2 getAbsolutePosition() const;
@@ -290,6 +294,11 @@ class Transform : public Component {
    * Передвинуться на сколько-то
   */
   void move(Vector2);
+
+  /**
+   * Передвинуться вместе с родителем
+  */
+  void moveAbsolute(Vector2);
 
   /**
    * Получить абсолютную координату по X

@@ -14,19 +14,20 @@ Object::Object(string name) {
 }
 
 void Object::callUpdate() {
+  children.sort(); // FIXME: Пока что бестолково
   for(auto &i : components) i->callUpdate();
   for(auto &i : children    ) i->callUpdate();
 }
 
 void Object::callDraw() {
-  if(ownRender) ownRender->render->callDraw();
-  for(auto &i : renders) i->object->callDraw();
+  if(ownRender) ownRender->callDraw();
+  for(auto &i : children) i->callDraw();
 }
 
 void Object::removeChild(Object* child) {
-  for(unsigned i = 0; i < children.size(); ++i) {
-    if(children[i] == child) {
-      children.erase(children.begin() + i);
+  for(auto i = children.begin(); i != children.end(); ++i) {
+    if(*i == child) {
+      children.erase(i);
       return;
     }
   }
@@ -62,7 +63,7 @@ Object* Object::getParent() const {
   return parent;
 }
 
-vector<Object*> Object::getChildren() const {
+list<Object*> Object::getChildren() const {
   return children;
 }
 
@@ -86,10 +87,8 @@ T* Object::addComponent(Args&& ...args) {
   T* cmp = new T(forward<Args>(args)...);
   if constexpr (is_base_of<Render, T>::value) { // Это рендер
     if(ownRender) throw "Два рендера к обьекту не крепятся";
-    ownRender = new PriorityObj;
-    ownRender->object = this;
-    ownRender->render = cmp;
-    parent->renders.push_back(ownRender);
+    ownRender = cmp;
+    parent->children.sort();
   }
   components.push_back(cmp);
   cmp->attachedObject = this;
@@ -105,7 +104,10 @@ template<
 T* Object::addChild(Args&& ...args) {
   T* ch = new T(forward<Args>(args)...);
   children.push_back(ch);
+  ch->transform->absolutePosition = transform->absolutePosition;
+  ch->transform->relativePosition = { 0, 0 };
   ch->parent = this;
+  children.sort();
   return ch;
 }
 
@@ -114,6 +116,10 @@ void Object::destroy() {
   parent->removeChild(this);
 }
 
+
+bool Object::operator<(Object &other) const {
+  return other.priority > priority;
+}
 
 //   ____                                             _   
 //  / ___|___  _ __ ___  _ __   ___  _ __   ___ _ __ | |_ 
@@ -165,33 +171,33 @@ void Component::destroy() {
 
 void Transform::moveChildren(Vector2 delta) {
   for(auto i : getObject()->getChildren()) {
-    i->getTransform()->move(delta);
+    i->getTransform()->moveAbsolute(delta);
   }
 }
 
 void Transform::setAbsolutePosition(Vector2 pos) {
   Vector2 delta = pos - absolutePosition;
-  move(delta);
   moveChildren(delta);
+  absolutePosition += delta;
+  relativePosition += delta;
 }
 
 void Transform::setRelativePosition(Vector2 pos) {
   Vector2 delta = pos - relativePosition;
-  move(delta);
   moveChildren(delta);
+  absolutePosition += delta;
+  relativePosition += delta;
 }
 
-void Transform::setRelativePositionSelf(Vector2 pos) {
-  move(pos - relativePosition);
-}
-
-void Transform::setAbsolutePositionSelf(Vector2 pos) {
-  move(pos - absolutePosition);
+void Transform::moveAbsolute(Vector2 delta) {
+  absolutePosition += delta;
+  moveChildren(delta);
 }
 
 void Transform::move(Vector2 delta) {
   absolutePosition += delta;
   relativePosition += delta;
+  moveChildren(delta);
 }
 
 Vector2 Transform::getAbsolutePosition() const {
