@@ -2,8 +2,9 @@
 #include "lib/sceneList.hpp"
 
 #include "scenes/menu.hpp"
+#include "scenes/keyDemo.hpp"
 
 scenes
-  startScene(Menu)
+  startScene(KeyDemo)
 thatsall
 
