@@ -254,10 +254,10 @@ Object* Scene::root() {
 //  \____|\__,_|_| |_| |_|\___|
                              
 void Game::openScene(string name) {
-  delete current;
+  delete game->current;
   erase();
-  current = create(name);
-  current->create();
+  game->current = game->create(name);
+  game->current->create();
 }
 
 void Game::update() {

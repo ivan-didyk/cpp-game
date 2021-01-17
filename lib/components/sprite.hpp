@@ -51,6 +51,8 @@ struct Anim {
 
 class Sprite : public Render {
  private:
+  unsigned framesPerDraw = 20;
+  unsigned bf = 9;
   Transform* transform;
   map<string, Anim> animations;
   string anim = "default";
@@ -100,6 +102,7 @@ class Sprite : public Render {
  public:
   Sprite(string name) {
     filename = name;
+    bf = framesPerDraw - 1;
   }
 
   void start() {
@@ -178,6 +181,9 @@ class Sprite : public Render {
   void setTrack(string name) { anim = name; currentFrame = 0; }
 
   void update() {
+    ++bf;
+    if(bf != framesPerDraw) return;
+    bf = 0;
     if(animations.find(anim) == animations.end()) return;
     if(active) {
       ++currentFrame;

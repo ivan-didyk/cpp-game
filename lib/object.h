@@ -6,6 +6,7 @@
 #include <list>
 #include <type_traits>
 #include <set>
+#include <ncurses.h>
 
 using namespace std;
 
@@ -372,17 +373,13 @@ class Game {
   Scene* current;
   // Всё что произошло на клавиатуре
   set<int> pressed;
-
+  // Последнее событие с мышки
+  vector<MEVENT> mouseEvents;
   /** 
    * Создаём сцену
    * Эта функция замаскирована в `scenes.hpp` макросами
   */
   Scene* create(string);
-
-  /**
-   * Открыть сцену
-  */
-  void openScene(string);
 
   /**
    * Создаём менеджера, открываем сцену по умолчанию
@@ -397,6 +394,13 @@ class Game {
   */
   void draw();
  public:
-
+  /**
+   * Определить, нажата ли клавиша
+  */
   static bool getKey(int);
+
+  /**
+   * Открыть сцену
+  */
+  static void openScene(string);
 };

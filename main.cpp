@@ -4,12 +4,6 @@
 #include <clocale>
 #include <ncurses.h>
 
-void getBuff(set<int> & v) {
-  int ch;
-  v.clear();
-  while((ch = getch()) != ERR) v.insert(ch);
-}
-
 int main() {
   try {
     setlocale(LC_ALL, "en_US.UTF-8");
@@ -28,23 +22,35 @@ int main() {
     init_pair(6, COLOR_CYAN, -1);
     init_pair(7, COLOR_WHITE, -1);
     nodelay(stdscr, TRUE);
+    mousemask(ALL_MOUSE_EVENTS | REPORT_MOUSE_POSITION, NULL);
   
     //erase();
 
 
     Game manager;
+    int ch;
+    MEVENT evt;
+
 
 
     curs_set(0);
 
     while (true) {
-      getBuff(manager.pressed);
+      manager.pressed.clear();
+      manager.mouseEvents.clear();
+      while((ch = getch()) != ERR)
+        if(ch == KEY_MOUSE) {
+          if(getmouse(&evt) == OK) {
+            manager.mouseEvents.push_back(evt);
+          }
+        } else manager.pressed.insert(ch);
+
       manager.update();
       erase();
       manager.draw();
       refresh();
       flushinp();
-      usleep(200000);
+      usleep(10000);
     }
     
     erase();
