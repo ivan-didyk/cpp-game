@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <list>
 #include <type_traits>
+#include <set>
 
 using namespace std;
 
@@ -102,10 +103,12 @@ class Object {
   */
   void callDraw();
 
+  void callCreate();
+
   void removeChild(Object*);
   void removeComponent(Component*);
  protected:
-  // @todo
+  virtual void create() {}
  public:
   /**
    * Создаём обьект с неким именем
@@ -368,8 +371,7 @@ class Game {
   // Сейчас открытая сцена
   Scene* current;
   // Всё что произошло на клавиатуре
-  int pressed;
-
+  set<int> pressed;
 
   /** 
    * Создаём сцену
@@ -397,6 +399,4 @@ class Game {
  public:
 
   static bool getKey(int);
-
-  static int getCurrentKey();
 };

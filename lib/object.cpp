@@ -24,6 +24,10 @@ void Object::callDraw() {
   for(auto &i : children) i->callDraw();
 }
 
+void Object::callCreate() {
+  create();
+}
+
 void Object::removeChild(Object* child) {
   for(auto i = children.begin(); i != children.end(); ++i) {
     if(*i == child) {
@@ -107,6 +111,7 @@ T* Object::addChild(Args&& ...args) {
   ch->transform->absolutePosition = transform->absolutePosition;
   ch->transform->relativePosition = { 0, 0 };
   ch->parent = this;
+  ch->callCreate();
   children.sort();
   return ch;
 }
@@ -270,11 +275,7 @@ Game::Game() {
 }
 
 bool Game::getKey(int key) {
-  return game->pressed == key;
-}
-
-int Game::getCurrentKey() {
-  return game->pressed;
+  return game->pressed.count(key);
 }
 
 Game* Game::game = nullptr;
