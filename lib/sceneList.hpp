@@ -4,10 +4,10 @@
 \**************************************/
 
 #define scenes Scene* Game::create(string s) {
-#define startScene(z) if(s == "" || s == typeid(z).name()) \
+#define startScene(nm, z) if(s == "" || s == nm) \
                            return new z; \
                          else
-#define scene(z) if(s == typeid(z).name()) \
+#define scene(nm, z) if(s == nm) \
                            return new z; \
                          else
-#define thatsall throw "No scene \"" + s + "\""; }
+#define thatsall throw "No scene names \"" + s + "\""; }

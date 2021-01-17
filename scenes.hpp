@@ -5,6 +5,7 @@
 #include "scenes/keyDemo.hpp"
 
 scenes
-  startScene(KeyDemo)
+  startScene("menu"    , Menu   )
+  scene     ("key-demo", KeyDemo)
 thatsall
 
