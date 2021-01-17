@@ -4,6 +4,12 @@
 #include <clocale>
 #include <ncurses.h>
 
+void getBuff(set<int> & v) {
+  int ch;
+  v.clear();
+  while((ch = getch()) != ERR) v.insert(ch);
+}
+
 int main() {
   try {
     setlocale(LC_ALL, "en_US.UTF-8");
@@ -21,7 +27,7 @@ int main() {
     init_pair(5, COLOR_MAGENTA, -1);
     init_pair(6, COLOR_CYAN, -1);
     init_pair(7, COLOR_WHITE, -1);
-    halfdelay(1);
+    nodelay(stdscr, TRUE);
   
     //erase();
 
@@ -32,7 +38,7 @@ int main() {
     curs_set(0);
 
     while (true) {
-      manager.pressed = getch();
+      getBuff(manager.pressed);
       manager.update();
       erase();
       manager.draw();
