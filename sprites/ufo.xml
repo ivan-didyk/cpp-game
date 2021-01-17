@@ -7,20 +7,31 @@
       <row color="WW BB BB BB BB WW" chars=":` () () () () `:" />
       <row color=" WWWWwWWWWWwWWWW " chars=" ````\`````/```` " />
       <row color="      wwwww      " chars="      `===`      " />
-      <row color="       rYr       " chars="       :#:       " />
-      <row color="       rYr       " chars="       ';'       " />
-      <row color="        r        " chars="        '        " />
+      <row color="       YWY       " chars="       :#:       " />
+      <row color="       YWY       " chars="       ';'       " />
+      <row color="        Y        " chars="        '        " />
     </frame>
     <frame>
       <row color="     LLLLLLL     " chars="     .=~~~=.     " />
       <row color="     L     L     " chars="     |     |     " />
       <row color="  WWWWWWWWWWWWW  " chars="  .=~^^^^^^^~=.  " />
-      <row color="WW BB BB BB BB WW" chars=":` () () () () `:" />
+      <row color="WWB BB BB BB BBWW" chars=":`) () () () ()`:" />
       <row color=" WWWWwWWWWWwWWWW " chars=" ````\`````/```` " />
       <row color="      wwwww      " chars="      `===`      " />
-      <row color="       rYr       " chars="       .:.       " />
-      <row color="        r        " chars="        '        " />
-      <row color="        r        " chars="        .        " />
+      <row color="       YWY       " chars="       .:.       " />
+      <row color="        Y        " chars="        '        " />
+      <row color="        Y        " chars="        .        " />
+    </frame>
+    <frame>
+      <row color="     LLLLLLL     " chars="     .=~~~=.     " />
+      <row color="     L     L     " chars="     |     |     " />
+      <row color="  WWWWWWWWWWWWW  " chars="  .=~^^^^^^^~=.  " />
+      <row color="WWBB BB BB BB BWW" chars=":`() () () () (`:" />
+      <row color=" WWWWwWWWWWwWWWW " chars=" ````\`````/```` " />
+      <row color="      wwwww      " chars="      `===`      " />
+      <row color="       YWY       " chars="       ':,       " />
+      <row color="        Y        " chars="        :        " />
+      <row color="                 " chars="                 " />
     </frame>
   </animation>
 </sprite>
