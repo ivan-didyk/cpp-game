@@ -1,6 +1,7 @@
 #include "lib/object.h"
 #include "lib/components/text.hpp"
 #include "components/simple-player-controller.hpp"
+#include "object/sidebar.hpp"
 
 class KeyDemo : public Scene {
   void create() {
@@ -9,5 +10,7 @@ class KeyDemo : public Scene {
     auto playSprite = player->addComponent<Sprite>("sprites/ufo.xml");
     playSprite->startPlaying();
     player->addComponent<PlayerController>();
+
+    root()->addChild<Sidebar>();
   }
 };
