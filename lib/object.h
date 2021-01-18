@@ -106,10 +106,13 @@ class Object {
 
   void callCreate();
 
+  void callSelfUpdate();
+
   void removeChild(Object*);
   void removeComponent(Component*);
  protected:
   virtual void create() {}
+  virtual void update() {}
  public:
   /**
    * Создаём обьект с неким именем
@@ -376,6 +379,8 @@ class Game {
   // Последнее событие с мышки
   MEVENT mouseEvent;
 
+  string sceneToOpen = "";
+
   /** 
    * Создаём сцену
    * Эта функция замаскирована в `scenes.hpp` макросами
@@ -408,4 +413,6 @@ class Game {
   static Vector2 getMousePosition();
 
   static mmask_t getMouseState();
+
+  static bool canUseMouse();
 };

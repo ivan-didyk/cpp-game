@@ -15,6 +15,7 @@ Object::Object(string name) {
 
 void Object::callUpdate() {
   children.sort(); // FIXME: Пока что бестолково
+  callSelfUpdate();
   for(auto &i : components) i->callUpdate();
   for(auto &i : children    ) i->callUpdate();
 }
@@ -26,6 +27,10 @@ void Object::callDraw() {
 
 void Object::callCreate() {
   create();
+}
+
+void Object::callSelfUpdate() {
+  update();
 }
 
 void Object::removeChild(Object* child) {
@@ -254,14 +259,18 @@ Object* Scene::root() {
 //  \____|\__,_|_| |_| |_|\___|
                              
 void Game::openScene(string name) {
-  delete game->current;
-  erase();
-  game->current = game->create(name);
-  game->current->create();
+  game->sceneToOpen = name;
 }
 
 void Game::update() {
   current->root()->callUpdate();
+  if(sceneToOpen != "") {
+    delete game->current;
+    erase();
+    game->current = game->create(sceneToOpen);
+    game->current->create();
+    sceneToOpen = "";
+  }
 }
 
 void Game::draw() {
@@ -284,6 +293,10 @@ Vector2 Game::getMousePosition()  {
 
 mmask_t Game::getMouseState()  {
   return game->mouseEvent.bstate;
+}
+
+bool Game::canUseMouse() {
+  return NCURSES_MOUSE_VERSION;
 }
 
 Game* Game::game = nullptr;
