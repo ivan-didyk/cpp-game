@@ -374,7 +374,8 @@ class Game {
   // Всё что произошло на клавиатуре
   set<int> pressed;
   // Последнее событие с мышки
-  vector<MEVENT> mouseEvents;
+  MEVENT mouseEvent;
+
   /** 
    * Создаём сцену
    * Эта функция замаскирована в `scenes.hpp` макросами
@@ -403,4 +404,8 @@ class Game {
    * Открыть сцену
   */
   static void openScene(string);
+
+  static Vector2 getMousePosition();
+
+  static mmask_t getMouseState();
 };

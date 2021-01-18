@@ -278,4 +278,12 @@ bool Game::getKey(int key) {
   return game->pressed.count(key);
 }
 
+Vector2 Game::getMousePosition()  {
+  return { game->mouseEvent.x, game->mouseEvent.y };
+}
+
+mmask_t Game::getMouseState()  {
+  return game->mouseEvent.bstate;
+}
+
 Game* Game::game = nullptr;
