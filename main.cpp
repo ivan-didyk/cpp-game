@@ -32,16 +32,14 @@ int main() {
     MEVENT evt;
 
 
-
     curs_set(0);
 
     while (true) {
       manager.pressed.clear();
-      manager.mouseEvents.clear();
       while((ch = getch()) != ERR)
         if(ch == KEY_MOUSE) {
           if(getmouse(&evt) == OK) {
-            manager.mouseEvents.push_back(evt);
+            manager.mouseEvent = evt;
           }
         } else manager.pressed.insert(ch);
 
