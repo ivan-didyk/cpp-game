@@ -2,30 +2,13 @@
 #include "lib/object.h"
 #include "lib/rapidxml/rapidxml.hpp"
 #include "lib/rapidxml/rapidxml_utils.hpp"
+#include "lib/utf8.hpp"
 #include <iostream>
 #include <map>
-#include <locale>
-#include <codecvt>
 #include <ncurses.h>
 #include <cctype>
 using namespace std;
 using namespace rapidxml;
-
-size_t utf8size(char* str) {
-  size_t len = 0;
-  while (*str) len += (*str++ & 0xc0) != 0x80;
-  return len;
-}
-
-u32string to_utf32(const string &s) {
-  wstring_convert<codecvt_utf8<char32_t>, char32_t> conv;
-  return conv.from_bytes(s);
-}
-
-std::string to_utf8(const std::u32string &s) {
-    std::wstring_convert<std::codecvt_utf8<char32_t>, char32_t> conv;
-    return conv.to_bytes(s);
-}
 
 unsigned getChildCount(xml_node<> *n) {
   unsigned c = 0;
