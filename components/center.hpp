@@ -1,9 +1,11 @@
 #include "lib/object.h"
 
+/******************************\
+* Крепим обьект в центр экрана *
+\******************************/
+
 class Center : public Component {
   void update() {
-    unsigned x, y;
-    getmaxyx(stdscr, y, x);
-    getTransform()->setAbsolutePosition({ x/2, y/2 });
+    getTransform()->setAbsolutePosition({ Game::getScreenSize().x / 2, Game::getScreenSize().y / 2 });
   }
 };
