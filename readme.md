@@ -2,12 +2,14 @@
 
 ## Что все эти папки и файлы значат?
 - `lib` - файлы движка
-  - `object.hpp` - Основной файл движка, где находится почти вся логика 
+  - `object.h` - Основной файл движка, где находится почти вся логика
   - `sceneList.hpp` - Файл с макросами для описания списка сцен
+  - `utf8.hpp`  - Пара функций работы с Юникодом
   - `components` - папка с основными компонентами
   - `rapidxml` - XML парсер, мощная штука
 - `scenes` - папка со сценами. Там можно создавать свои сцены
 - `sprites` - папка с картинками в XML формате
+- `object` - папка со своими обьектами
 - `anims.txt` - Файлик с разной ASCII графикой, придумываемой мной для игры.
 - `main.cpp` - Основной файл, **при дополнении игры не менять.**
 - `scenes.hpp` - Файл со списком сцен
@@ -108,7 +110,7 @@ class Pechka : public Render {
 Делаем файл сцены в `/scenes` (назовём его `izba.hpp`)
 Пишем там код:
 ```cpp
-#include "lib/object.hpp" // Всё то же
+#include "lib/object.h" // Всё то же
 
 #include "components/pechka.hpp" // Подключаем свой компонент
 
@@ -117,9 +119,9 @@ class Izba : Scene {
   // Запускается при создании сцены
   void create() {
     // Доюавляем обьект на сцену
-    // base() это корневой компонент сцены
+    // root() это корневой компонент сцены
     // В скобках название обьекта в игровом мире
-    auto pechka = base().addChild<Object>("Pechka");
+    auto pechka = root().addChild<Object>("Pechka");
     // Добавляем компонент
     pechka->addComponent<Pechka>();
   }
@@ -135,20 +137,11 @@ class Izba : Scene {
 
 scenes
   // Начальная сцена
-  startScene(Izba)
+  startScene("izba", Izba)
   // Обычная сцена
-  // scene(Les)
-  // scene(Kabinet)
+  // scene("forest", Les)
+  // scene("kabinet-bossa", Kabinet)
 thatsall
 ```
 
 Должно заработать.
-
-## Как запускать?
-
-### Если вы на `Repl.it`
-
-Напишите в терминал это:
-```shell
-clang -std=c++11 -lncurses main.cpp -o main -I `pwd`
-```
