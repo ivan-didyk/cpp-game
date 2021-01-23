@@ -8,16 +8,24 @@
 //   \___/|_.__// |\___|\___|\__|
 //            |__/               
 
+
+
 Object::Object(string name) {
   label = name;
   transform = addComponent<Transform>();
+  priority = 0;
 }
 
 void Object::callUpdate() {
-  children.sort(); // FIXME: Пока что бестолково
+  children.sort([](const Object *lhs, const Object *rhs)->bool{
+     return lhs->getPriority() > rhs->getPriority();
+  }); // FIXME: Пока что бестолково
   callSelfUpdate();
   for(auto &i : components) i->callUpdate();
-  for(auto &i : children    ) i->callUpdate();
+  for(auto &i : children  ) {
+    i->callUpdate();
+  }
+  children.remove_if([](const Object* o) { return o->forDestroy; });
 }
 
 void Object::callDraw() {
@@ -122,13 +130,20 @@ T* Object::addChild(Args&& ...args) {
 }
 
 void Object::destroy() {
-  for(auto &i : components) i->onDestroy();
-  parent->removeChild(this);
+  forDestroy = true;
 }
 
 
 bool Object::operator<(Object &other) const {
   return other.priority > priority;
+}
+
+void Object::setPriority(int p) {
+  priority = p;
+}
+
+int Object::getPriority() const {
+  return priority;
 }
 
 //   ____                                             _   
@@ -263,6 +278,7 @@ void Game::openScene(string name) {
 }
 
 void Game::update() {
+  current->update();
   current->root()->callUpdate();
   if(sceneToOpen != "") {
     delete game->current;
@@ -297,6 +313,12 @@ mmask_t Game::getMouseState()  {
 
 bool Game::canUseMouse() {
   return NCURSES_MOUSE_VERSION;
+}
+
+Vector2 Game::getScreenSize() {
+  int x, y;
+  getmaxyx(stdscr, y, x);
+  return { x, y };
 }
 
 Game* Game::game = nullptr;

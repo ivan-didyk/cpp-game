@@ -52,25 +52,6 @@ struct Vector2 {
 };
 
 /**
- * Маленький класс для запоминания кого первым рисовать
-*/
-struct PriorityObj {
-  // Кого рисовать
-  Object* object = nullptr;
-  // Какой компонент рисует
-  Render* render = nullptr;
-  // Приоритет
-  int priority = 0;
-
-  // Это сделано для сортировки, для другого не применимо
-  bool operator<(const PriorityObj &other) {
-    return priority > other.priority;
-  }
-};
-
-
-
-/**
  * Игровой обьект - как Player, Tree, Button
 */
 class Object {
@@ -93,7 +74,9 @@ class Object {
   // Свой рендер
   Render* ownRender = nullptr;
   // Приоритет отрисовки
-  int priority;
+  int priority = 0;
+
+  bool forDestroy = false;
 
   /**
    * Запускаем обновление по всему обьекту
@@ -198,7 +181,6 @@ class Object {
 
   bool operator<(Object&) const;
 };
-
 
 
 /**
@@ -352,6 +334,8 @@ class Scene {
   */
   virtual void create() {}
 
+  virtual void update() {}
+
   /**
    * Получаем рут сцены
   */
@@ -411,6 +395,8 @@ class Game {
   static void openScene(string);
 
   static Vector2 getMousePosition();
+
+  static Vector2 getScreenSize();
 
   static mmask_t getMouseState();
 
