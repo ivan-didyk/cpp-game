@@ -322,3 +322,7 @@ Vector2 Game::getScreenSize() {
 }
 
 Game* Game::game = nullptr;
+
+void Game::exitc() {
+  game->shouldExit = true;
+}

@@ -1,0 +1,55 @@
+<sprite>
+  <animation name="default">
+    <frame>
+      <row color=" YY YYY    " chars=" .- ^-.    " collision=" ######    " />
+      <row color="YW RR  YRRW" chars="/o ))  `'-(" collision="###########"/>
+      <row color="YYRRRRRRRWW" chars="'--'''''''(" collision="###########"/>
+    </frame>
+  </animation>
+
+  <animation name="left">
+    <frame>
+      <row color=" YY YYY    " chars=" .- ^-.    " collision=" ######    "/>
+      <row color="YW RR  YRRW" chars="/o ))  `'-(" collision="###########"/>
+      <row color="YYRRRRRRRWW" chars="'--'''''''(" collision="###########"/>
+    </frame>
+    <frame>
+      <row color=" YY YYR    " chars=" .- ^-.    " collision=" ######    "/>
+      <row color="YW RR  RWW " chars="/o ))  `.( " collision="########## "/>
+      <row color="YYRRRRRWWW " chars="'--''''''( " collision="########## "/>
+    </frame>
+    <frame>
+      <row color=" YY YYY    " chars=" .- ^-.    " collision=" ######    "/>
+      <row color="YW RR  YRRW" chars="/o ))  `'-(" collision="###########"/>
+      <row color="YYRRRRRRRlW" chars="'--'''''''(" collision="###########"/>
+    </frame>
+    <frame>
+      <row color=" YY YYR    " chars=" .- ^-.    " collision=" ######    "/>
+      <row color="YW RR  YWW " chars="/o ))  `'( " collision="########## "/>
+      <row color="YYRRRYYWWW " chars="'--'''''-( " collision="########## "/>
+    </frame>
+  </animation>
+
+  <animation name="right">
+    <frame>
+      <row color="    YYY YY " chars="    .-^ -. " collision="    ###### "/>
+      <row color="WRRY  RR WY" chars=")-'`  )) o\" collision="###########"/>
+      <row color="WWRRRRRRRYY" chars=")'''''''--'" collision="###########"/>
+    </frame>
+    <frame>
+      <row color="    RYY YY " chars="    .-^ -. " collision="    ###### "/>
+      <row color=" WWR  RR WY" chars=" ).`  )) o\" collision=" ##########"/>
+      <row color=" WWWRRRRRYY" chars=" )''''''--'" collision=" ##########"/>
+    </frame>
+    <frame>
+      <row color="    YYY YY " chars="    .-^ -. " collision="    ###### "/>
+      <row color="WRRY  RR WY" chars=")-'`  )) o\" collision="###########"/>
+      <row color="WlRRRRRRRYY" chars=")'''''''--'" collision="###########"/>
+    </frame>
+    <frame>
+      <row color="    RYY YY " chars="    .-^ -. " collision="    ###### "/>
+      <row color=" WWY  RR WY" chars=" )'`  )) o\" collision=" ##########"/>
+      <row color=" WWWYYRRRYY" chars=" )-'''''--'" collision=" ##########"/>
+    </frame>
+  </animation>
+</sprite>

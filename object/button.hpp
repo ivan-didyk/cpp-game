@@ -10,13 +10,14 @@ class Button : public Object {
   unsigned width;
   EventSystem * s;
   Text* tt;
+  int color = COLOR_GREEN;
 
   void create() {
     width = utf8size(t.c_str())+3;
-    addComponent<WindowRender>(width, 2, COLOR_GREEN);
+    addComponent<WindowRender>(width, 2, color);
     s = addComponent<EventSystem>();
     auto btnText = addChild<Object>("btn-text");
-    tt = btnText->addComponent<Text>(t, COLOR_GREEN);
+    tt = btnText->addComponent<Text>(t, color);
     btnText->getTransform()->setRelativePosition({ 2, 1 });
   }
 
@@ -32,7 +33,8 @@ class Button : public Object {
     }
   }
 public:
-  Button(string name, string txt) :Object(name) {
+  Button(string name, string txt, int __color = COLOR_GREEN) :Object(name) {
     t = txt;
+    color = __color;
   }
 };

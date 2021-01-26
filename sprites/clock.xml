@@ -1,0 +1,16 @@
+<sprite>
+  <animation name="default">
+    <frame>
+      <row chars="/" color="W" />
+    </frame>
+    <frame>
+      <row chars="|" color="W" />
+    </frame>
+    <frame>
+      <row chars="\" color="W" />
+    </frame>
+    <frame>
+      <row chars="-" color="W" />
+    </frame>
+  </animation>
+</sprite>

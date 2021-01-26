@@ -6,6 +6,7 @@ static Vector2 moves[4] = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
 
 class Plankton : public Render {
   Sprite* fish;
+  Sprite* enemy;
   unsigned* stats;
   unsigned* score;
 
@@ -28,6 +29,11 @@ class Plankton : public Render {
   }
 
   void update() {
+    if(enemy->checkCollision(getTransform()->getAbsolutePosition())) {
+      getObject()->destroy();
+      return;
+    }
+
     if(fish->checkCollision(getTransform()->getAbsolutePosition())) {
       --(*stats);
       if(*score < 2000) (*score) += (isSpecial ? 150 : 30);
@@ -54,18 +60,20 @@ class Plankton : public Render {
     getTransform()->move(move);
   }
  public:
-  Plankton(Sprite* __fish, unsigned *__stats, unsigned *__score) {
+  Plankton(Sprite* __fish, Sprite* __enemy, unsigned *__stats, unsigned *__score) {
     fish = __fish;
     stats = __stats;
     isSpecial = (rand() % 30) == 0;
     score = __score;
+    enemy = __enemy;
   }
 
-  Plankton(Sprite* __fish, unsigned *__stats, unsigned *__score, unsigned __ttl) {
+  Plankton(Sprite* __fish, Sprite* __enemy, unsigned *__stats, unsigned *__score, unsigned __ttl) {
     fish = __fish;
     stats = __stats;
     isSpecial = (rand() % 50) == 0;
     score = __score;
     ttl = __ttl;
+    enemy = __enemy;
   }
 };

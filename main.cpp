@@ -22,6 +22,7 @@ int main() {
     init_pair(6, COLOR_CYAN, -1);
     init_pair(7, COLOR_WHITE, -1);
     nodelay(stdscr, TRUE);
+    MEVENT nullEvt;
     mousemask(ALL_MOUSE_EVENTS | REPORT_MOUSE_POSITION, NULL);
   
     //erase();
@@ -34,8 +35,11 @@ int main() {
 
     curs_set(0);
 
-    while (true) {
+    while (!manager.shouldExit) {
       manager.pressed.clear();
+      manager.mouseEvent.bstate = 0;
+      manager.mouseEvent.x = -1;
+      manager.mouseEvent.y = -1;
       while((ch = getch()) != ERR)
         if(ch == KEY_MOUSE) {
           if(getmouse(&evt) == OK) {

@@ -1,0 +1,15 @@
+<sprite>
+  <animation name="default">
+    <frame pivotY="4" pivotX="8">
+      <row color="        L           " chars="        o           "/>
+      <row color="    L        L      " chars="    o        o      "/>
+      <row color="  G       l      G  " chars="  (       o      )  "/>
+      <row color="   G G     wwwwwG   " chars="   ) (     .---.(   "/>
+      <row color="G Gl  G  w w   w G G" chars=") (o  )  . |   | ) ("/>
+      <row color="WWWWWWWWWWWWWWWWWWWW" chars="''''''''''''''''''''"/>
+      <row color="     www  w  w  w   " chars="     '''  .  '  '   "/>
+      <row color="   w       WWWW     " chars="   .       <'-<     "/>
+      <row color="       w            " chars="       .            "/>
+    </frame>
+  </animation>
+</sprite>

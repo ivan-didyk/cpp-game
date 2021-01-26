@@ -365,6 +365,8 @@ class Game {
 
   string sceneToOpen = "";
 
+  bool shouldExit = false;
+
   /** 
    * Создаём сцену
    * Эта функция замаскирована в `scenes.hpp` макросами
@@ -401,4 +403,6 @@ class Game {
   static mmask_t getMouseState();
 
   static bool canUseMouse();
+
+  static void exitc();
 };
